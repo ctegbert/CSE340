@@ -42,6 +42,18 @@ header h1 {
   margin: 0;
 }
 
+.detail-header {
+  background-color: transparent; /* Remove background color */
+  color: black; /* Set text color to black */
+  text-align: center; /* Center the text if needed */
+  padding: 20px 0; /* Add some padding for spacing */
+}
+
+.detail-header h1 {
+  font-size: 32px; /* Adjust the size of the header */
+  margin: 0; /* Ensure there's no extra margin around the header */
+}
+
 /* My Account Button */
 .account {
   position: absolute;
