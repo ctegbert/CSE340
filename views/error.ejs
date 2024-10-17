@@ -1,0 +1,11 @@
+<%- include('partials/header'); -%>
+
+<main class="error-page">
+  <h1><%= title %></h1>
+  <p><%= message %></p>
+  <% if (process.env.NODE_ENV === 'development') { %>
+    <pre><%= error %></pre> <!-- Only show the detailed error in development -->
+  <% } %>
+</main>
+
+<%- include('partials/footer'); -%>

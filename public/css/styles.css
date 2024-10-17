@@ -247,3 +247,34 @@ p {
     margin-right: 20px;
   }
 }
+
+.error-page {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.error-page h1 {
+  font-size: 36px;
+  color: #ffffff;
+}
+
+.error-page p {
+  font-size: 18px;
+  color: #ffffff;
+  margin: 20px 0;
+}
+
+footer a {
+  background-color: #1a2e4a; /* Make the button a solid blue */
+  color: white; /* Ensure the font is white */
+  padding: 5px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  background-color: #008CBA; /* Slightly lighter blue on hover */
+  color: white;
+}
+

@@ -44,3 +44,21 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+// Error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log the error for debugging
+
+  // Set status code based on the error or default to 500
+  const statusCode = err.status || 500;
+
+  // Render the error page, and provide a dummy 'nav' if it isn't available
+  res.status(statusCode).render("error", {
+    title: "Server Error",
+    message: "Oops! Something went wrong. Please try again later.",
+    error: process.env.NODE_ENV === "development" ? err.message : "",
+    nav: "" // Provide an empty string for the 'nav' variable
+  });
+});
+
+
