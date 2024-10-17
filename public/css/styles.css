@@ -132,7 +132,8 @@ nav ul li a:hover {
 }
 
 .car-info button {
-  background-color: #00a6d6;
+  background-color: #1a2e4a;
+  color: white; /* Set button text to white */
   padding: 15px 30px; /* Increase button size */
   font-size: 18px; /* Make the button text bigger */
   border: none;
@@ -146,7 +147,8 @@ button:hover {
 
 /* Upgrades Section: Add blue background behind images */
 .upgrades ul li {
-  background-color: #00a6d6; /* Keep the blue background */
+  background-color: #1a2e4a; /* Keep the blue background */
+  color: white; /* Set the text color of the upgrades to white */
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #ffffff; /* Add a white border around each item for better separation */
