@@ -72,8 +72,8 @@ app.use((err, req, res, next) => {
     title,
     message,
     error: process.env.NODE_ENV === "development" ? err.message : "",
-    nav: "", // Provide an empty string for the 'nav' variable if not needed
-    errorType // Pass the error type to the template
+    nav: "", 
+    errorType 
   });
 });
 

@@ -7,20 +7,20 @@
 
 body {
   background-image: url('/images/site/small_check.jpg');
-  background-size: 2000px 2000px; /* Make the checkered pattern bigger */
+  background-size: 2000px 2000px;
   background-repeat: repeat;
   color: #333;
   line-height: 1.6;
 }
 
 main {
-  background-color: white; /* Solid white background for the content */
-  padding: 20px 40px; /* Adjust padding for a cleaner look */
+  background-color: white;
+  padding: 20px 40px;
   margin: 20px auto;
-  max-width: 1000px; /* Adjusted based on your layout */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border-radius: 10px; /* Rounded corners */
-  border: 3px solid lightblue; /* Thicker light blue border to match the design */
+  max-width: 1000px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border: 3px solid lightblue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,27 +31,27 @@ main {
 header {
   background-color: #333;
   color: white;
-  padding: 15px 0; /* Reduce padding for a sleeker look */
+  padding: 15px 0;
   text-align: left;
   position: relative;
 }
 
 header h1 {
-  font-size: 28px; /* Add CSE Motors title and make it prominent */
+  font-size: 28px;
   padding-left: 20px;
   margin: 0;
 }
 
 .detail-header {
-  background-color: transparent; /* Remove background color */
-  color: black; /* Set text color to black */
-  text-align: center; /* Center the text if needed */
-  padding: 20px 0; /* Add some padding for spacing */
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  padding: 20px 0;
 }
 
 .detail-header h1 {
-  font-size: 32px; /* Adjust the size of the header */
-  margin: 0; /* Ensure there's no extra margin around the header */
+  font-size: 32px;
+  margin: 0;
 }
 
 /* My Account Button */
@@ -61,8 +61,8 @@ header h1 {
   right: 20px;
   color: white;
   text-decoration: none;
-  font-weight: normal; /* Lessen the weight for subtlety */
-  font-size: 18px; /* Make the font bigger */
+  font-weight: normal;
+  font-size: 18px;
 }
 
 .account:hover {
@@ -71,8 +71,8 @@ header h1 {
 
 /* Navigation Bar */
 nav {
-  width: 100vw; /* Full viewport width */
-  background-color: #1a2e4a; /* Dark blue to match the design */
+  width: 100vw;
+  background-color: #1a2e4a;
   padding: 0;
 }
 
@@ -91,21 +91,21 @@ nav ul li {
 nav ul li a {
   color: white;
   text-decoration: none;
-  padding: 15px 25px; /* Increase padding for bigger buttons */
-  background-color: #1a2e4a; /* Match the new nav bar color */
+  padding: 15px 25px;
+  background-color: #1a2e4a;
   border-radius: 5px;
   font-weight: bold;
-  font-size: 18px; /* Increase font size for navigation items */
+  font-size: 18px;
 }
 
 nav ul li a:hover {
-  background-color: #273d5f; /* Slightly lighter blue on hover */
+  background-color: #273d5f;
 }
 
 /* Section and Content Block Styles */
 .intro {
   text-align: center;
-  margin-bottom: 30px; /* Add more space below the intro */
+  margin-bottom: 30px;
 }
 
 .reviews-upgrades {
@@ -119,8 +119,8 @@ nav ul li a:hover {
   padding: 15px;
   border: 1px solid lightgray;
   border-radius: 8px;
-  background-color: white; /* Make the background solid */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .reviews ul, .upgrades ul {
@@ -129,41 +129,41 @@ nav ul li a:hover {
 }
 
 .reviews ul li, .upgrades ul li {
-  margin-bottom: 20px; /* Add more space between the list items */
+  margin-bottom: 20px;
   color: #333;
 }
 
 /* Add more spacing and alignment for DeLorean info and button */
 .car-info {
-  margin-left: 30px; /* Space the list and button from the car image */
+  margin-left: 30px;
 }
 
 .car-info ul {
-  margin-top: 10px; /* Add space between the heading and the list */
-  margin-bottom: 15px; /* Add space between the list and the button */
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .car-info button {
   background-color: #1a2e4a;
-  color: white; /* Set button text to white */
-  padding: 15px 30px; /* Increase button size */
-  font-size: 18px; /* Make the button text bigger */
+  color: white;
+  padding: 15px 30px;
+  font-size: 18px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #008CBA; /* Darken on hover */
+  background-color: #008CBA;
 }
 
 /* Upgrades Section: Add blue background behind images */
 .upgrades ul li {
-  background-color: #1a2e4a; /* Keep the blue background */
-  color: white; /* Set the text color of the upgrades to white */
+  background-color: #1a2e4a;
+  color: white;
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid #ffffff; /* Add a white border around each item for better separation */
+  border: 2px solid #ffffff;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
@@ -171,7 +171,7 @@ button:hover {
 
 .upgrades ul li img {
   margin-right: 10px;
-  background-color: white; /* Ensure the image itself has a white background */
+  background-color: white;
   padding: 5px;
   border-radius: 5px;
 }
@@ -184,17 +184,17 @@ button:hover {
 }
 
 .featured-car img {
-  margin-right: 30px; /* Space between the image and the text */
+  margin-right: 30px;
 }
 
 /* Footer Styles */
 footer {
   margin-top: 30px;
-  padding: 20px 0; /* Increase padding for footer */
-  font-size: 16px; /* Increase footer text size */
+  padding: 20px 0;
+  font-size: 16px;
   color: white;
-  background-color: #1a2e4a; /* Match the footer background with the navigation bar color */
-  width: 100%; /* Ensure it spans the full width of the page */
+  background-color: #1a2e4a;
+  width: 100%;
   text-align: center;
 }
 
@@ -204,7 +204,7 @@ footer p {
 
 /* Typography Adjustments */
 h1 {
-  font-size: 28px; /* Match the title size */
+  font-size: 28px;
 }
 
 h2 {
@@ -214,7 +214,7 @@ h2 {
 
 p {
   font-size: 16px;
-  line-height: 1.5; /* Increase line height for better readability */
+  line-height: 1.5;
 }
 
 /* Media Query for Larger Screens */
@@ -265,8 +265,8 @@ p {
 }
 
 footer a {
-  background-color: #1a2e4a; /* Make the button a solid blue */
-  color: white; /* Ensure the font is white */
+  background-color: #1a2e4a;
+  color: white;
   padding: 5px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -274,7 +274,7 @@ footer a {
 }
 
 footer a:hover {
-  background-color: #008CBA; /* Slightly lighter blue on hover */
+  background-color: #008CBA;
   color: white;
 }
 
@@ -288,16 +288,15 @@ footer a:hover {
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Center text horizontally */
+  text-align: center;
   max-width: 600px;
   margin: 0 auto;
-  height: center; /* Set a fixed height for vertical centering */
 }
 
 .error-header {
-  background-color: transparent; /* Remove the background */
-  color: black; /* Set text color to black */
-  text-align: center; /* Center the text */
-  padding: 20px 0; /* Adjust padding if needed */
-  font-size: 24px; /* Adjust the font size as needed */
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 24px;
 }
