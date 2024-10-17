@@ -1,6 +1,235 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
+/* General Styles (Mobile First) */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-image: url('/images/site/small_check.jpg');
+  background-size: 2000px 2000px; /* Make the checkered pattern bigger */
+  background-repeat: repeat;
+  color: #333;
+  line-height: 1.6;
+}
+
+main {
+  background-color: white; /* Solid white background for the content */
+  padding: 20px 40px; /* Adjust padding for a cleaner look */
+  margin: 20px auto;
+  max-width: 1000px; /* Adjusted based on your layout */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 10px; /* Rounded corners */
+  border: 3px solid lightblue; /* Thicker light blue border to match the design */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px 0; /* Reduce padding for a sleeker look */
+  text-align: left;
+  position: relative;
+}
+
+header h1 {
+  font-size: 28px; /* Add CSE Motors title and make it prominent */
+  padding-left: 20px;
+  margin: 0;
+}
+
+/* My Account Button */
+.account {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: normal; /* Lessen the weight for subtlety */
+  font-size: 18px; /* Make the font bigger */
+}
+
+.account:hover {
+  text-decoration: underline;
+}
+
+/* Navigation Bar */
+nav {
+  width: 100vw; /* Full viewport width */
+  background-color: #1a2e4a; /* Dark blue to match the design */
+  padding: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 15px 25px; /* Increase padding for bigger buttons */
+  background-color: #1a2e4a; /* Match the new nav bar color */
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 18px; /* Increase font size for navigation items */
+}
+
+nav ul li a:hover {
+  background-color: #273d5f; /* Slightly lighter blue on hover */
+}
+
+/* Section and Content Block Styles */
+.intro {
+  text-align: center;
+  margin-bottom: 30px; /* Add more space below the intro */
+}
+
+.reviews-upgrades {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.reviews, .upgrades {
+  width: 45%;
+  padding: 15px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  background-color: white; /* Make the background solid */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.reviews ul, .upgrades ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reviews ul li, .upgrades ul li {
+  margin-bottom: 20px; /* Add more space between the list items */
+  color: #333;
+}
+
+/* Add more spacing and alignment for DeLorean info and button */
+.car-info {
+  margin-left: 30px; /* Space the list and button from the car image */
+}
+
+.car-info ul {
+  margin-top: 10px; /* Add space between the heading and the list */
+  margin-bottom: 15px; /* Add space between the list and the button */
+}
+
+.car-info button {
+  background-color: #00a6d6;
+  padding: 15px 30px; /* Increase button size */
+  font-size: 18px; /* Make the button text bigger */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #008CBA; /* Darken on hover */
+}
+
+/* Upgrades Section: Add blue background behind images */
+.upgrades ul li {
+  background-color: #00a6d6; /* Keep the blue background */
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #ffffff; /* Add a white border around each item for better separation */
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.upgrades ul li img {
+  margin-right: 10px;
+  background-color: white; /* Ensure the image itself has a white background */
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Featured Car Section */
+.featured-car {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.featured-car img {
+  margin-right: 30px; /* Space between the image and the text */
+}
+
+/* Footer Styles */
+footer {
+  margin-top: 30px;
+  padding: 20px 0; /* Increase padding for footer */
+  font-size: 16px; /* Increase footer text size */
+  color: white;
+  background-color: #1a2e4a; /* Match the footer background with the navigation bar color */
+  width: 100%; /* Ensure it spans the full width of the page */
+  text-align: center;
+}
+
+footer p {
+  color: #ffffff;
+}
+
+/* Typography Adjustments */
+h1 {
+  font-size: 28px; /* Match the title size */
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5; /* Increase line height for better readability */
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 768px) {
+  .featured-car {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .reviews-upgrades {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .reviews, .upgrades {
+    width: 45%;
+  }
+
+  header {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  nav ul {
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  nav ul li {
+    margin-right: 20px;
+  }
 }
