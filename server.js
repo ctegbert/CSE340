@@ -45,6 +45,14 @@ app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
 
+// Catch-all 404 handler for undefined routes
+app.use((req, res, next) => {
+  const err = new Error("Sorry, the page you are looking for does not exist.");
+  err.status = 404;
+  next(err); // Pass the error to the error-handling middleware
+});
+
+
 // Error-handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack); // Log the error for debugging
@@ -52,12 +60,20 @@ app.use((err, req, res, next) => {
   // Set status code based on the error or default to 500
   const statusCode = err.status || 500;
 
-  // Render the error page, and provide a dummy 'nav' if it isn't available
+  // Determine the title, message, and error type based on the status code
+  let title = statusCode === 404 ? "Page Not Found" : "Server Error";
+  let message = statusCode === 404 
+    ? "Sorry, the page you are looking for does not exist." 
+    : "This is an intentional HTTP 500 Internal Server Error.";
+  let errorType = statusCode === 404 ? "404" : "500";
+
+  // Render the error page and pass the error type
   res.status(statusCode).render("error", {
-    title: "Server Error",
-    message: "Oops! Something went wrong. Please try again later.",
+    title,
+    message,
     error: process.env.NODE_ENV === "development" ? err.message : "",
-    nav: "" // Provide an empty string for the 'nav' variable
+    nav: "", // Provide an empty string for the 'nav' variable if not needed
+    errorType // Pass the error type to the template
   });
 });
 

@@ -278,3 +278,26 @@ footer a:hover {
   color: white;
 }
 
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  border: 3px solid lightblue;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text horizontally */
+  max-width: 600px;
+  margin: 0 auto;
+  height: center; /* Set a fixed height for vertical centering */
+}
+
+.error-header {
+  background-color: transparent; /* Remove the background */
+  color: black; /* Set text color to black */
+  text-align: center; /* Center the text */
+  padding: 20px 0; /* Adjust padding if needed */
+  font-size: 24px; /* Adjust the font size as needed */
+}
