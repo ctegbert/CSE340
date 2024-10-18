@@ -13,11 +13,11 @@ router.get("/register", accountController.buildRegister);
 
 // Process the registration data
 router.post(
-  "/register",
-  regValidate.registrationRules(),
-  regValidate.checkRegData,
-  accountController.registerAccount
-);
+    "/register",
+    regValidate.registationRules(),
+    regValidate.checkRegData,
+    accountController.registerAccount
+  );
 
 // Export the router for use elsewhere in the project
 module.exports = router;

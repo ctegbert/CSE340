@@ -25,10 +25,10 @@ async function buildRegister(req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
-    errors: null, // Initialize errors as null
-    account_firstname: '', // Initialize with empty string
-    account_lastname: '', // Initialize with empty string
-    account_email: '', // Initialize with empty string
+    errors: null,
+    account_firstname: '',
+    account_lastname: '',
+    account_email: '',
   });
 }
 
