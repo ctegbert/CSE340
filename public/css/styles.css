@@ -452,3 +452,11 @@ footer a:hover {
   color: #ffffff;
   margin-bottom: 10px;
 }
+
+.management-header {
+  color: black;
+  background-color: transparent;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}

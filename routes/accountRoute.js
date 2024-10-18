@@ -19,5 +19,16 @@ router.post(
     accountController.registerAccount
   );
 
+// Process the login request
+router.post(
+  "/login",
+  regValidate.loginRules(),  // Make sure this validation exists
+  regValidate.checkLoginData,  // And this function is defined
+  utilities.handleErrors(accountController.accountLogin) // Point to accountLogin correctly
+);
+
+// Default route for the account management view
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+
 // Export the router for use elsewhere in the project
 module.exports = router;

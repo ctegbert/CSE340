@@ -18,6 +18,8 @@ const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const utilities = require("./utilities/index");
+const cookieParser = require("cookie-parser")
+
 
 /* ***********************
  * Middleware
@@ -56,6 +58,15 @@ app.use(async function(req, res, next) {
     next(error);
   }
 });
+
+
+app.use(cookieParser())
+
+// Middleware to check JWT Token
+app.use(utilities.checkJWTToken);
+
+
+
 
 /* ***********************
  * View Engines and Templates

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    
+    <h1 class="management-header">Account Management</h1>
+    
+
+    <main>
+        <% if (messages.notice) { %>
+            <div class="flash-message">
+                <p><%= messages.notice %></p>
+            </div>
+        <% } %>
+
+        <div class="account-container">
+            <p>You're logged in!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>How bout dem Cheifs?</p>
+    </footer>
+</body>
+</html>
