@@ -1,4 +1,16 @@
 <header>
   <h1><a href="/" style="text-decoration: none; color: inherit;">CSE Motors</a></h1>
-  <a href="/account/login" class="account">My Account</a>
+  <nav>
+    <ul>
+      <% if (loggedin) { %>
+        <!-- Link to account management page, visible when logged in -->
+        <li><a href="/account/manage">Welcome <%= accountData.account_firstname %></a></li>
+        <!-- Logout link, visible when logged in -->
+        <li><a href="/account/logout" class="account">Logout</a></li>
+      <% } else { %>
+        <!-- My Account link, visible when not logged in -->
+        <li><a href="/account/login" class="account">My Account</a></li>
+      <% } %>
+    </ul>
+  </nav>
 </header>

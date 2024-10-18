@@ -34,6 +34,14 @@ router.get("/",
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
+// In your accountRoute.js or similar file
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwt");
+  req.flash("notice", "You have been logged out.");
+  res.redirect("/");
+});
+
+
 
 // Export the router for use elsewhere in the project
 module.exports = router;

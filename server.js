@@ -59,12 +59,17 @@ app.use(async function(req, res, next) {
   }
 });
 
-
 app.use(cookieParser())
 
 // Middleware to check JWT Token
 app.use(utilities.checkJWTToken);
 
+// Middleware to set local variables for views
+app.use((req, res, next) => {
+  res.locals.loggedin = req.cookies.jwt ? true : false;
+  res.locals.accountData = req.cookies.jwt ? res.locals.accountData : null;
+  next();
+});
 
 /* ***********************
  * View Engines and Templates
