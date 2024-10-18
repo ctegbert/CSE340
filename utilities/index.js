@@ -161,5 +161,24 @@ Util.checkLogin = (req, res, next) => {
   }
  }
 
+
+// Middleware to check account type
+const checkAccountType = (req, res, next) => {
+  // Check if the user is logged in
+  if (res.locals.loggedin) {
+      const accountData = res.locals.accountData;
+      
+      // Allow access if the account type is "Employee" or "Admin"
+      if (accountData.account_type === 'Employee' || accountData.account_type === 'Admin') {
+          return next(); // Allow access
+      }
+  }
+  
+  // Redirect to login if the check fails
+  req.flash("notice", "Access denied. You must be an employee or admin to view this page.");
+  return res.redirect("/account/login");
+};
+
+
 // Export all utility functions
 module.exports = Util;
