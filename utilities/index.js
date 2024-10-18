@@ -42,7 +42,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
-        'details"><img src="' +
+        ' details"><img src="' +
         vehicle.inv_thumbnail +
         '" alt="Image of ' +
         vehicle.inv_make +
@@ -93,6 +93,29 @@ Util.buildVehicleDetail = function (vehicle) {
 };
 
 /* **************************************
+ * Function to build the classification select list
+ ************************************ */
+Util.buildClassificationList = async function (selectedId = null) {
+  try {
+    let data = await invModel.getClassifications();
+    let classificationList = '<select name="classification_id" id="classificationList" required>';
+    classificationList += "<option value=''>Choose a Classification</option>";
+    data.rows.forEach((row) => {
+      classificationList += `<option value="${row.classification_id}"`;
+      if (selectedId && row.classification_id == selectedId) {
+        classificationList += " selected";
+      }
+      classificationList += `>${row.classification_name}</option>`;
+    });
+    classificationList += "</select>";
+    return classificationList;
+  } catch (error) {
+    console.error("Error building classification list:", error);
+    throw new Error("Error building classification list");
+  }
+};
+
+/* **************************************
  * Error handling wrapper for async functions
  ************************************ */
 Util.handleErrors = function (fn) {
@@ -136,8 +159,6 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
-
-
 
 // Export all utility functions
 module.exports = Util;

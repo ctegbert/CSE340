@@ -460,3 +460,18 @@ footer a:hover {
   font-size: 28px;
   margin-bottom: 20px;
 }
+
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#inventoryDisplay th, #inventoryDisplay td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: left;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+}
