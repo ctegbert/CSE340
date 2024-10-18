@@ -4,11 +4,14 @@ const router = new express.Router();
 const utilities = require("../utilities/index");
 const accountController = require("../controllers/accountController");
 
-// Route for the "My Account" page
+// Route for the login page
 router.get("/login", accountController.buildLogin);
 
-// Route for the registration view
+// Route for the registration page
 router.get("/register", accountController.buildRegister);
+
+// Route for processing the registration form
+router.post('/register', accountController.registerAccount);
 
 // Error handler for this route
 router.use((err, req, res, next) => {
@@ -25,4 +28,3 @@ router.use((err, req, res, next) => {
 
 // Export the router for use elsewhere in the project
 module.exports = router;
-

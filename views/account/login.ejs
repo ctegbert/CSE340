@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="/css/styles.css"> <!-- Link to your main stylesheet -->
 </head>
 <body>
-        <h1 class="login-header">Login</h1>
-    
+    <h1 class="login-header">Login</h1>
+
     <main>
-        <% if (typeof message !== 'undefined') { %>
+        <% if (messages.notice && messages.notice.length > 0) { %>
             <div class="flash-message">
-                <p><%= message %></p>
+                <p><%= messages.notice[0] %></p>
             </div>
         <% } %>
 
@@ -28,7 +28,6 @@
         </div>
     </main>
 
-    
     <footer>
         <p>This is the start of something big!</p>
     </footer>

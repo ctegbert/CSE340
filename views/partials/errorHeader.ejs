@@ -1,11 +1,9 @@
 <header class="error-header">
-    <h1>
-      <% if (errorType === "404") { %>
-        404 Error!
-      <% } else { %>
-        500 Error!
-      <% } %>
-    </h1>
-  </header>
-  
-  
+  <h1>
+    <% if (typeof errorType !== 'undefined' && errorType === "404") { %>
+      404 Error!
+    <% } else { %>
+      500 Error!
+    <% } %>
+  </h1>
+</header>
