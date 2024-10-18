@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <main>
+        <h1>Inventory Management</h1>
+        <% if (messages.notice) { %>
+            <div class="flash-message">
+                <p><%= messages.notice %></p>
+            </div>
+        <% } %>
+        <ul>
+            <li><a href="/inv/add-classification">Add New Classification</a></li>
+            <li><a href="/inv/add-vehicle">Add New Vehicle</a></li>
+        </ul>
+    </main>
+</body>
+</html>

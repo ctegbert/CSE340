@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Classification</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Add New Classification</h1>
+    <form action="/inv/add-classification" method="post">
+        <label for="classification_name">Classification Name:</label>
+        <input type="text" name="classification_name" id="classification_name" pattern="^[a-zA-Z0-9]+$" required>
+        <button type="submit">Add Classification</button>
+    </form>
+    <% if (messages.notice) { %>
+        <div class="flash-message">
+            <p><%= messages.notice %></p>
+        </div>
+    <% } %>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+</body>
+</html>
