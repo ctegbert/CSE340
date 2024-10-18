@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Link to your main stylesheet -->
+</head>
+<body>
+
+    <h1 class="reg-header">Register</h1>
+
+
+    <main>
+        <% if (typeof message !== 'undefined') { %>
+            <div class="flash-message">
+                <p><%= message %></p>
+            </div>
+        <% } %>
+
+        <div class="register-container">
+            <form action="/account/register" method="post">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" required>
+
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" required>
+
+                <label for="account_email">Email:</label>
+                <input type="email" name="account_email" id="account_email" required>
+
+                <label for="account_password">Password:</label>
+                <input type="password" name="account_password" id="account_password" required 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{12,}"
+                    title="Must be at least 12 characters, contain at least 1 uppercase letter, 1 number, and 1 special character">
+                
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>You're making an account! That's exciting!</p>
+    </footer>
+</body>
+</html>

@@ -12,8 +12,23 @@ async function buildLogin(req, res, next) {
       nav,
     });
   } catch (error) {
-    next(error); // Pass the error to the error-handling middleware
+    next(error);
   }
 }
 
-module.exports = { buildLogin };
+/* ****************************************
+*  Deliver registration view
+* *************************************** */
+async function buildRegister(req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("account/register", {
+      title: "Register",
+      nav,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { buildLogin, buildRegister };
