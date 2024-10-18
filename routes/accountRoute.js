@@ -27,8 +27,13 @@ router.post(
   utilities.handleErrors(accountController.accountLogin) // Point to accountLogin correctly
 );
 
-// Default route for the account management view
-router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+// Route for the account management view with JWT token and login check middleware
+router.get("/", 
+  utilities.checkJWTToken, 
+  utilities.checkLogin,  // Add this check to ensure the user is logged in
+  utilities.handleErrors(accountController.buildAccountManagement)
+);
+
 
 // Export the router for use elsewhere in the project
 module.exports = router;
