@@ -34,10 +34,13 @@ router.get("/",
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
-// In your accountRoute.js or similar file
+// Route for the logout process
 router.get("/logout", (req, res) => {
+  // Clear the JWT cookie
   res.clearCookie("jwt");
+  // Flash message for logout notification
   req.flash("notice", "You have been logged out.");
+  // Redirect to the home page
   res.redirect("/");
 });
 
