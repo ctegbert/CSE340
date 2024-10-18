@@ -66,8 +66,6 @@ app.use(cookieParser())
 app.use(utilities.checkJWTToken);
 
 
-
-
 /* ***********************
  * View Engines and Templates
  *************************/

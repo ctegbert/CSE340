@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Vehicle: <%= inv_make %> <%= inv_model %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Delete Vehicle: <%= inv_make %> <%= inv_model %></h1>
+    
+    <form action="/inv/delete" method="post">
+        <input type="hidden" name="inv_id" value="<%= inv_id %>">
+        
+        <p>Confirm Deletion - The delete is permanent.</p>
+        
+        <label for="inv_make">Make:</label>
+        <input type="text" name="inv_make" id="inv_make" readonly value="<%= inv_make %>">
+        
+        <label for="inv_model">Model:</label>
+        <input type="text" name="inv_model" id="inv_model" readonly value="<%= inv_model %>">
+        
+        <label for="inv_year">Year:</label>
+        <input type="number" name="inv_year" id="inv_year" readonly value="<%= inv_year %>">
+        
+        <label for="inv_price">Price:</label>
+        <input type="number" name="inv_price" id="inv_price" readonly value="<%= inv_price %>">
+        
+        <button type="submit">Delete Vehicle</button>
+    </form>
+</body>
+</html>

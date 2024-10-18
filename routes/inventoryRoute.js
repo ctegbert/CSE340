@@ -25,7 +25,6 @@ router.get("/detail/:invId", invCont.buildByInventoryId);
 
 // Intentional Error Route
 router.get("/trigger-error", (req, res, next) => {
-    // Intentionally throwing an error to test error handling
     const error = new Error("This is an intentional HTTP 500 Internal Server Error.");
     error.status = 500;
     next(error);
@@ -48,12 +47,21 @@ router.post(
   utilities.handleErrors(invCont.updateInventory)
 );
 
+// Route to build the add inventory view
+router.get("/add-inventory", utilities.handleErrors(invCont.buildAddInventory));
+
 // Route to add a new inventory item
 router.post(
   "/add-inventory",
   inventoryValidation.newInventoryRules(),
   inventoryValidation.checkInventoryData,
-  utilities.handleErrors(invCont.addNewInventory) // Make sure this function exists in your controller
+  utilities.handleErrors(invCont.addNewInventory)
 );
+
+// Route to build the delete confirmation view
+router.get("/delete/:inv_id", utilities.handleErrors(invCont.deleteInventoryView));
+
+// Route to handle delete inventory data
+router.post("/delete", utilities.handleErrors(invCont.deleteInventory));
 
 module.exports = router;

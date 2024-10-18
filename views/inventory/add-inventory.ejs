@@ -9,6 +9,9 @@
 <body>
     <h1>Add New Vehicle</h1>
     <form action="/inv/add-inventory" method="post">
+        <label for="classification_id">Classification:</label>
+        <%= classificationSelect %>
+
         <label for="inv_make">Make:</label>
         <input type="text" name="inv_make" id="inv_make" required>
         
@@ -35,9 +38,6 @@
         
         <label for="inv_color">Color:</label>
         <input type="text" name="inv_color" id="inv_color" required>
-        
-        <label for="classification_id">Classification:</label>
-        <%= classificationSelect %>
         
         <button type="submit">Add Vehicle</button>
     </form>

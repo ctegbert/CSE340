@@ -10,10 +10,11 @@
     <h1>Edit Vehicle: <%= inv_make %> <%= inv_model %></h1>
     
     <form action="/inv/update" method="post" id="updateForm">
-
-        <!-- Hidden field for vehicle ID -->
         <input type="hidden" name="inv_id" value="<%= inv_id %>">
-        
+
+        <label for="classification_id">Classification:</label>
+        <%- classificationSelect %>
+
         <label for="inv_make">Make:</label>
         <input type="text" name="inv_make" id="inv_make" required value="<%= inv_make %>">
         
@@ -41,11 +42,7 @@
         <label for="inv_color">Color:</label>
         <input type="text" name="inv_color" id="inv_color" required value="<%= inv_color %>">
         
-        <label for="classification_id">Classification:</label>
-        <%- classificationSelect %> <!-- Make sure this renders the dropdown properly -->
-        
         <button type="submit" disabled>Update Vehicle</button>
-
     </form>
     
     <% if (messages.notice) { %>
@@ -62,6 +59,5 @@
         </ul>
     <% } %>
     <script src="/js/inv-update.js"></script>
-
 </body>
 </html>
