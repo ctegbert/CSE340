@@ -6,6 +6,9 @@ const classificationValidation = require('../utilities/classification-validation
 const utilities = require("../utilities/index");
 const inventoryValidation = require('../utilities/inventory-validation');
 
+// Route to build the add inventory view
+router.get("/add-inventory", utilities.handleErrors(invCont.buildAddInventory));
+
 // Route for add classification view
 router.get("/add-classification", invCont.buildAddClassification);
 
@@ -47,8 +50,6 @@ router.post(
   utilities.handleErrors(invCont.updateInventory)
 );
 
-// Route to build the add inventory view
-router.get("/add-inventory", utilities.handleErrors(invCont.buildAddInventory));
 
 // Route to add a new inventory item
 router.post(

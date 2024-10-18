@@ -340,4 +340,31 @@ invCont.deleteInventory = async function (req, res, next) {
 };
 
 
+/* ***************************
+ *  Build Add Inventory View
+ * ************************** */
+/* ***************************
+ *  Build Add Inventory View
+ * ************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+  try {
+    console.log("Add Inventory Route Accessed"); // Debugging line
+    let nav = await utilities.getNav();
+    const classificationSelect = await utilities.buildClassificationList();
+    res.render("inventory/add-inventory", {
+      title: "Add New Vehicle",
+      nav,
+      classificationSelect,
+      errors: null,
+      messages: req.flash('notice')
+    });
+  } catch (error) {
+    console.error("Error building add inventory view: ", error);
+    next(error);
+  }
+};
+
+
+
+
 module.exports = invCont;
