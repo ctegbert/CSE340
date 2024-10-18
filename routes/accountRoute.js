@@ -3,28 +3,21 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
 const accountController = require("../controllers/accountController");
+const regValidate = require("../utilities/account-validation");
 
-// Route for the login page
+// Route for the "My Account" page
 router.get("/login", accountController.buildLogin);
 
-// Route for the registration page
+// Route for the registration view
 router.get("/register", accountController.buildRegister);
 
-// Route for processing the registration form
-router.post('/register', accountController.registerAccount);
-
-// Error handler for this route
-router.use((err, req, res, next) => {
-    console.error(err.stack);
-    const statusCode = err.status || 500;
-    res.status(statusCode).render("error", {
-        title: statusCode === 404 ? "Page Not Found" : "Server Error",
-        message: statusCode === 404
-            ? "Sorry, the page you are looking for does not exist."
-            : "An error occurred while processing your request.",
-        error: process.env.NODE_ENV === "development" ? err.message : "",
-    });
-});
+// Process the registration data
+router.post(
+  "/register",
+  regValidate.registrationRules(),
+  regValidate.checkRegData,
+  accountController.registerAccount
+);
 
 // Export the router for use elsewhere in the project
 module.exports = router;

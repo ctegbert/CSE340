@@ -9,22 +9,37 @@
 <body>
     <h1>Register</h1>
     <main>
-        <% if (messages.notice) { %>
+        <% if (typeof message !== 'undefined') { %>
             <div class="flash-message">
-                <p><%= messages.notice %></p>
+                <p><%= message %></p>
             </div>
+        <% } %>
+
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
         <% } %>
 
         <div class="register-container">
             <form action="/account/register" method="post">
                 <label for="account_firstname">First Name:</label>
-                <input type="text" name="account_firstname" id="account_firstname" required>
+                <input type="text" name="account_firstname" id="account_firstname" required value="<%= account_firstname || '' %>">
+                
                 <label for="account_lastname">Last Name:</label>
-                <input type="text" name="account_lastname" id="account_lastname" required>
+                <input type="text" name="account_lastname" id="account_lastname" required value="<%= account_lastname || '' %>">
+                
                 <label for="account_email">Email:</label>
-                <input type="email" name="account_email" id="account_email" required>
+                <input type="email" name="account_email" id="account_email" required value="<%= account_email || '' %>">
+                
                 <label for="account_password">Password:</label>
-                <input type="password" name="account_password" id="account_password" required>
+                <div class="password-requirements">
+                    Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
+                </div>
+                <input type="password" name="account_password" id="account_password" required
+                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
                 <button type="submit">Register</button>
             </form>
         </div>
