@@ -142,12 +142,62 @@ async function accountLogin(req, res, next) {
 async function buildAccountManagement(req, res, next) {
   try {
     let nav = await utilities.getNav();
+    // Access account data from res.locals
+    const accountData = res.locals.accountData;
+
     res.render("account/management", {
       title: "Account Management",
       nav,
       errors: null,
       messages: req.flash('notice'),
+      account_firstname: accountData.account_firstname,
+      account_type: accountData.account_type,
+      account_id: accountData.account_id // Pass the account ID for the update link
     });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+/* ****************************************
+*  Deliver update account view
+* *************************************** */
+async function buildUpdateAccount(req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    const accountId = req.params.accountId;
+    const accountData = await accountModel.getAccountById(accountId);
+
+    res.render("account/update", {
+      title: "Update Account Information",
+      nav,
+      errors: null,
+      account: accountData // Pass the account data for form population
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+/* ****************************************
+*  Update account information
+* *************************************** */
+async function updateAccount(req, res, next) {
+  try {
+    const { account_firstname, account_lastname, account_email } = req.body;
+    const accountId = req.params.accountId;
+    
+    // Call the model to update the account information
+    const updateResult = await accountModel.updateAccountById(accountId, account_firstname, account_lastname, account_email);
+
+    if (updateResult.rowCount) {
+      req.flash("notice", "Account successfully updated.");
+      return res.redirect("/account");
+    } else {
+      req.flash("notice", "Account update failed. Please try again.");
+      return res.status(400).redirect(`/account/update/${accountId}`);
+    }
   } catch (error) {
     next(error);
   }
@@ -159,4 +209,6 @@ module.exports = {
   registerAccount,
   accountLogin,
   buildAccountManagement, 
+  buildUpdateAccount,
+  updateAccount,
 };

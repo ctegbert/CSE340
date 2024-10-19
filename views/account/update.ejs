@@ -1,0 +1,17 @@
+
+<main>
+    <h1>Update Account Information</h1>
+    <form action="/account/update/<%= account.account_id %>" method="POST">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="account_firstname" value="<%= account.account_firstname %>" required>
+        
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="account_lastname" value="<%= account.account_lastname %>" required>
+    
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="account_email" value="<%= account.account_email %>" required>
+        
+        <button type="submit">Update Account</button>
+    </form>
+</main>
+

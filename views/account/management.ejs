@@ -12,19 +12,21 @@
     
 
     <main>
-        <% if (messages.notice) { %>
-            <div class="flash-message">
-                <p><%= messages.notice %></p>
-            </div>
-        <% } %>
+        <h1>Account Management</h1>
 
-        <div class="account-container">
-            <p>You're logged in!</p>
-        </div>
+<!-- Greet the client by first name -->
+<h2>Welcome <%= account_firstname %></h2>
+
+<!-- Update Account Information Link -->
+<a href="/account/update/<%= account_id %>">Update Account Information</a>
+
+<!-- Conditional rendering for Inventory Management section -->
+<% if (account_type === 'Employee' || account_type === 'Admin') { %>
+    <h3>Inventory Management</h3>
+    <p><a href="/inv">Access Inventory Management</a></p>
+<% } %>
+
     </main>
 
-    <footer>
-        <p>How bout dem Cheifs?</p>
-    </footer>
 </body>
 </html>

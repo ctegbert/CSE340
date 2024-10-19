@@ -44,6 +44,9 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+// Route to render the account update form
+router.get("/update/:accountId", utilities.checkLogin, accountController.buildUpdateAccount);
+router.post("/update/:accountId", utilities.checkLogin, accountController.updateAccount);
 
 
 // Export the router for use elsewhere in the project
