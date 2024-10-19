@@ -203,6 +203,32 @@ async function updateAccount(req, res, next) {
   }
 }
 
+/* ****************************************
+*  Update account password
+* *************************************** */
+async function updatePassword(req, res, next) {
+  try {
+    const { new_password, account_id } = req.body;
+
+    // Hash the new password before storing it
+    const hashedPassword = await bcrypt.hash(new_password, 10);
+
+    const updateResult = await accountModel.updatePasswordById(account_id, hashedPassword);
+
+    if (updateResult.rowCount) {
+      req.flash("notice", "Password successfully updated.");
+      return res.redirect("/account");
+    } else {
+      req.flash("notice", "Password update failed. Please try again.");
+      return res.status(400).redirect(`/account/update/${account_id}`);
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+
 module.exports = {
   buildLogin,
   buildRegister,
@@ -211,4 +237,5 @@ module.exports = {
   buildAccountManagement, 
   buildUpdateAccount,
   updateAccount,
+  updatePassword,
 };

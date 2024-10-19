@@ -49,5 +49,9 @@ router.get("/update/:accountId", utilities.checkLogin, accountController.buildUp
 router.post("/update/:accountId", utilities.checkLogin, accountController.updateAccount);
 
 
+router.post("/update-password/:accountId", utilities.checkLogin, accountController.updatePassword);
+
+
+
 // Export the router for use elsewhere in the project
 module.exports = router;
