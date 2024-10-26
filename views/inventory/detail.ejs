@@ -21,3 +21,8 @@
 </main>
 <%- include('../partials/detailFooter'); -%>
 
+
+<form action="/wishlist/add" method="POST">
+  <input type="hidden" name="invId" value="<%= vehicle.inv_id %>">
+  <button type="submit">Add to Wishlist</button>
+</form>

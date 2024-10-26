@@ -8,7 +8,10 @@
         <%- include('../partials/navigation') %>
     
             <main>
-                <%- body %>
+                <% if (loggedin) { %>
+                    <li><a href="/wishlist">My Wishlist</a></li>
+                  <% } %>
+                  
             </main>
         
             <%- include('../partials/footer') %>

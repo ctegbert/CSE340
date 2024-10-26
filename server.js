@@ -19,6 +19,7 @@ const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const utilities = require("./utilities/index");
 const cookieParser = require("cookie-parser")
+const wishlistRoute = require("./routes/wishlistRoute");
 
 
 /* ***********************
@@ -91,6 +92,8 @@ app.use("/account", accountRoute);
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
+
+app.use("/wishlist", wishlistRoute);
 
 /* ***********************
  * Local Server Information
