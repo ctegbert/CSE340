@@ -1,3 +1,7 @@
 <nav>
     <%- nav %>
+
+    <% if (res.locals.loggedin) { %>
+        <li><a href="/favorites">My Favorites</a></li>
+      <% } %>
 </nav>

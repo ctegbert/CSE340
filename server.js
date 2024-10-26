@@ -15,6 +15,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute");
+const favoritesRoute = require("./routes/favoritesRoute");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const utilities = require("./utilities/index");
@@ -91,6 +92,9 @@ app.use("/account", accountRoute);
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
+
+// Favorites route
+app.use("/favorites", favoritesRoute);
 
 /* ***********************
  * Local Server Information

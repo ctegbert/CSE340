@@ -21,3 +21,8 @@
 </main>
 <%- include('../partials/detailFooter'); -%>
 
+<% if (res.locals.loggedin) { %>
+  <form action="/favorites/add/<%= vehicle.inv_id %>" method="POST">
+    <button type="submit">Add to Favorites</button>
+  </form>
+<% } %>
