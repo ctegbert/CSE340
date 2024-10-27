@@ -19,7 +19,7 @@ const restrictAccess = (req, res, next) => {
 router.get("/add-inventory", restrictAccess, utilities.handleErrors(invCont.buildAddInventory));
 
 // Route for add classification view
-router.get("/add-classification", restrictAccess, invCont.buildAddClassification);
+router.get("/add-classification", restrictAccess, utilities.handleErrors(invCont.buildAddClassification));
 
 // Route to process the classification data
 router.post(
@@ -27,14 +27,14 @@ router.post(
   restrictAccess,
   classificationValidation.classificationRules(),
   classificationValidation.checkClassificationData,
-  invCont.processAddClassification
+  utilities.handleErrors(invCont.processAddClassification)
 );
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", invCont.buildByClassificationId);
+router.get("/type/:classificationId", utilities.handleErrors(invCont.buildByClassificationId));
 
 // Route to build vehicle detail view by vehicle id
-router.get("/detail/:invId", invCont.buildByInventoryId);
+router.get("/detail/:invId", utilities.handleErrors(invCont.buildByInventoryId));
 
 // Intentional Error Route
 router.get("/trigger-error", (req, res, next) => {

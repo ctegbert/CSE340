@@ -1,7 +1,8 @@
 const invModel = require("../models/inventory-model");
-const Util = {};
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
+const Util = {};
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -56,6 +57,15 @@ Util.checkLogin = (req, res, next) => {
     req.flash("notice", "Please log in.");
     return res.redirect("/account/login");
   }
+};
+
+/* **************************************
+ * Error handling wrapper for async functions
+ ************************************ */
+Util.handleErrors = function (fn) {
+  return function (req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
 };
 
 module.exports = Util;
