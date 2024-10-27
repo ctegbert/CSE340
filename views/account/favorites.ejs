@@ -5,8 +5,6 @@
       <li>
         <h2><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h2>
         <p>Price: $<%= vehicle.inv_price %></p>
-        <p>Mileage: <%= vehicle.inv_miles %> miles</p>
-        <p>Color: <%= vehicle.inv_color %></p>
         <form action="/favorites/remove/<%= vehicle.inv_id %>" method="POST">
           <button type="submit">Remove from Favorites</button>
         </form>
