@@ -81,7 +81,7 @@ async function updatePassword(req, res, next) {
   // Implement password update logic here
 }
 
-// Placeholder for buildFavoritesView (optional, only if needed for favorites feature)
+// Placeholder for buildFavoritesView (for the favorites feature)
 async function buildFavoritesView(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -104,5 +104,5 @@ module.exports = {
   buildUpdateAccount,
   updateAccount,
   updatePassword,
-  buildFavoritesView,
+  buildFavoritesView, 
 };
