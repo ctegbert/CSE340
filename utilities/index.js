@@ -1,5 +1,5 @@
 const invModel = require("../models/inventory-model");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken"); // Ensure jwt is defined for token management
 require("dotenv").config();
 
 const Util = {};
@@ -19,32 +19,44 @@ Util.getNav = async function () {
     return list;
   } catch (error) {
     console.error("Error fetching navigation data:", error);
-    return "<ul><li>Error loading navigation</li></ul>";
+    return "<ul><li>Error loading navigation</li></ul>"; // Fallback in case of error
   }
 };
 
 /* **************************************
- * Function to build the classification grid
+ * Middleware to check token validity
  ************************************ */
-Util.buildClassificationGrid = function (data) {
-  let grid;
-  if (data.length > 0) {
-    grid = '<ul id="inv-display">';
-    data.forEach((vehicle) => {
-      grid += "<li>";
-      grid += `<a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details"><img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" /></a>`;
-      grid += '<div class="namePrice">';
-      grid += "<hr />";
-      grid += `<h2><a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">${vehicle.inv_make} ${vehicle.inv_model}</a></h2>`;
-      grid += `<span>$${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</span>`;
-      grid += "</div>";
-      grid += "</li>";
-    });
-    grid += "</ul>";
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = true;
+        next();
+      }
+    );
   } else {
-    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    next();
   }
-  return grid;
+};
+
+/* **************************************
+ * Check Login Middleware
+ ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
 };
 
 /* **************************************
@@ -54,6 +66,24 @@ Util.handleErrors = function (fn) {
   return function (req, res, next) {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
+};
+
+/* **************************************
+ * Build Classification Grid
+ ************************************ */
+Util.buildClassificationGrid = function (data) {
+  let grid = "<ul id='inv-display'>";
+  data.forEach((vehicle) => {
+    grid += "<li>";
+    grid += `<a href="/inv/detail/${vehicle.inv_id}"><img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}"></a>`;
+    grid += "<div class='namePrice'>";
+    grid += `<h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
+    grid += `<span>$${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</span>`;
+    grid += "</div>";
+    grid += "</li>";
+  });
+  grid += "</ul>";
+  return grid;
 };
 
 module.exports = Util;
