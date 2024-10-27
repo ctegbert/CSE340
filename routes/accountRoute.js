@@ -61,5 +61,12 @@ router.post(
   utilities.handleErrors(accountController.updatePassword)
 );
 
+// Optional: Route for "My Favorites" if `buildFavoritesView` is implemented
+router.get(
+  "/favorites",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildFavoritesView)
+);
+
 // Export the router for use elsewhere in the project
 module.exports = router;
