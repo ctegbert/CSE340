@@ -6,52 +6,60 @@ const accountController = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
 
 // Route for the "My Account" page
-router.get("/login", accountController.buildLogin);
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // Route for the registration view
-router.get("/register", accountController.buildRegister);
+router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
 // Process the registration data
 router.post(
-    "/register",
-    regValidate.registationRules(),
-    regValidate.checkRegData,
-    accountController.registerAccount
-  );
+  "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+);
 
 // Process the login request
 router.post(
   "/login",
-  regValidate.loginRules(),  // Make sure this validation exists
-  regValidate.checkLoginData,  // And this function is defined
-  utilities.handleErrors(accountController.accountLogin) // Point to accountLogin correctly
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
 );
 
 // Route for the account management view with JWT token and login check middleware
-router.get("/", 
-  utilities.checkJWTToken, 
-  utilities.checkLogin,  // Add this check to ensure the user is logged in
+router.get(
+  "/",
+  utilities.checkJWTToken,
+  utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement)
 );
 
 // Route for the logout process
 router.get("/logout", (req, res) => {
-  // Clear the JWT cookie
   res.clearCookie("jwt");
-  // Flash message for logout notification
   req.flash("notice", "You have been logged out.");
-  // Redirect to the home page
   res.redirect("/");
 });
 
 // Route to render the account update form
-router.get("/update/:accountId", utilities.checkLogin, accountController.buildUpdateAccount);
-router.post("/update/:accountId", utilities.checkLogin, accountController.updateAccount);
+router.get(
+  "/update/:accountId",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildUpdateAccount)
+);
 
+router.post(
+  "/update/:accountId",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.updateAccount)
+);
 
-router.post("/update-password/:accountId", utilities.checkLogin, accountController.updatePassword);
-
-
+router.post(
+  "/update-password/:accountId",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.updatePassword)
+);
 
 // Export the router for use elsewhere in the project
 module.exports = router;
