@@ -1,5 +1,6 @@
 const utilities = require("../utilities/");
 const accountModel = require("../models/account-model");
+const jwt = require("jsonwebtoken");
 
 // Build the login view
 async function buildLogin(req, res, next) {
@@ -38,7 +39,29 @@ async function registerAccount(req, res, next) {
 
 // Process login request
 async function accountLogin(req, res, next) {
-  // Implement login logic here
+  try {
+    const { email, password } = req.body;
+    const accountData = await accountModel.getAccountByEmail(email);
+
+    // Check if account exists and passwords match (you may want to hash passwords in production)
+    if (!accountData || accountData.password !== password) {
+      req.flash("notice", "Invalid email or password");
+      return res.redirect("/account/login");
+    }
+
+    // Generate JWT token and set it as a cookie
+    const token = jwt.sign(
+      { account_id: accountData.account_id, email: accountData.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.cookie("jwt", token, { httpOnly: true });
+    req.flash("notice", "You are logged in successfully!");
+    res.redirect("/account");
+  } catch (error) {
+    next(error);
+  }
 }
 
 // Build the account management view
