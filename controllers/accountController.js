@@ -1,6 +1,7 @@
 const utilities = require("../utilities/");
 const accountModel = require("../models/account-model");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // Build the login view
 async function buildLogin(req, res, next) {
@@ -34,7 +35,7 @@ async function buildRegister(req, res, next) {
 
 // Register a new account
 async function registerAccount(req, res, next) {
-  // Implement registration logic here
+  // Implement registration logic here, ensuring passwords are hashed before saving to the database
 }
 
 // Process login request
@@ -43,8 +44,15 @@ async function accountLogin(req, res, next) {
     const { email, password } = req.body;
     const accountData = await accountModel.getAccountByEmail(email);
 
-    // Check if account exists and passwords match (you may want to hash passwords in production)
-    if (!accountData || accountData.password !== password) {
+    // Check if account exists
+    if (!accountData) {
+      req.flash("notice", "Invalid email or password");
+      return res.redirect("/account/login");
+    }
+
+    // Verify password using bcrypt
+    const isPasswordMatch = await bcrypt.compare(password, accountData.password);
+    if (!isPasswordMatch) {
       req.flash("notice", "Invalid email or password");
       return res.redirect("/account/login");
     }
@@ -127,5 +135,5 @@ module.exports = {
   buildUpdateAccount,
   updateAccount,
   updatePassword,
-  buildFavoritesView, 
+  buildFavoritesView,
 };
