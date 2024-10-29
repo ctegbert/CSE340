@@ -1,27 +1,50 @@
 const favoritesModel = require("../models/favoritesModel");
 const utilities = require("../utilities/");
 
-async function addFavorite(req, res, next) { // Added next as a parameter
+async function addFavorite(req, res, next) {
   try {
-    const { invId } = req.params;
-    await favoritesModel.addFavorite(res.locals.accountData.account_id, invId);
-    req.flash("notice", "Vehicle added to favorites.");
-    res.redirect("/favorites");
+      const { invId } = req.params;
+      const accountId = res.locals.accountData.account_id;
+
+      // Validate invId and accountId
+      if (!invId || isNaN(invId) || !accountId) {
+          req.flash("error", "Invalid vehicle ID or user not authenticated.");
+          return res.redirect("/inv");
+      }
+
+      // Check if the vehicle exists
+      const vehicleExists = await favoritesModel.checkVehicleExists(invId);
+      if (!vehicleExists) {
+          req.flash("error", "The vehicle does not exist.");
+          return res.redirect("/inv");
+      }
+
+      await favoritesModel.addFavorite(accountId, invId);
+      req.flash("notice", "Vehicle added to favorites.");
+      res.redirect("/favorites");
   } catch (error) {
-    console.error("Error adding favorite:", error); // Log the error
-    next(error); // Pass the error to the next middleware
+      console.error("Error adding favorite:", error);
+      next(error);
   }
 }
 
-async function removeFavorite(req, res, next) { // Added next as a parameter
+async function removeFavorite(req, res, next) {
   try {
-      const { invId } = req.params; 
-      await favoritesModel.removeFavorite(res.locals.accountData.account_id, invId);
+      const { invId } = req.params;
+      const accountId = res.locals.accountData.account_id;
+
+      // Validate invId and accountId
+      if (!invId || isNaN(invId) || !accountId) {
+          req.flash("error", "Invalid vehicle ID or user not authenticated.");
+          return res.redirect("/inv");
+      }
+
+      await favoritesModel.removeFavorite(accountId, invId);
       req.flash("notice", "Vehicle removed from favorites.");
       res.redirect("/favorites");
   } catch (error) {
-      console.error("Error removing favorite:", error); // Log the error
-      next(error); // Pass the error to the next middleware
+      console.error("Error removing favorite:", error);
+      next(error);
   }
 }
 

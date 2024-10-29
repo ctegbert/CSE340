@@ -19,6 +19,10 @@ async function getFavoritesByAccountId(accountId) {
   return pool.query(sql, [accountId]);
 }
 
+async function checkVehicleExists(invId) {
+  const sql = `SELECT * FROM inventory WHERE inv_id = $1;`;
+  const result = await pool.query(sql, [invId]);
+  return result.rows.length > 0; 
+}
 
-
-module.exports = { addFavorite, removeFavorite, getFavoritesByAccountId };
+module.exports = { addFavorite, removeFavorite, getFavoritesByAccountId, checkVehicleExists };
