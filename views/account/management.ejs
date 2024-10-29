@@ -20,6 +20,9 @@
 <!-- Update Account Information Link -->
 <a href="/account/update/<%= account_id %>">Update Account Information</a>
 
+  <!-- My Favorites Button -->
+  <a href="/favorites" class="favorites-button">My Favorites</a>
+
 <!-- Conditional rendering for Inventory Management section -->
 <% if (account_type === 'Employee' || account_type === 'Admin') { %>
     <h3>Inventory Management</h3>

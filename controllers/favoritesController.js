@@ -1,39 +1,48 @@
 const favoritesModel = require("../models/favoritesModel");
 const utilities = require("../utilities/");
 
-async function addFavorite(req, res) {
+async function addFavorite(req, res, next) { // Added next as a parameter
   try {
     const { invId } = req.params;
     await favoritesModel.addFavorite(res.locals.accountData.account_id, invId);
     req.flash("notice", "Vehicle added to favorites.");
     res.redirect("/favorites");
   } catch (error) {
-    utilities.handleErrors(error, req, res);
+    console.error("Error adding favorite:", error); // Log the error
+    next(error); // Pass the error to the next middleware
   }
 }
 
-async function removeFavorite(req, res) {
+async function removeFavorite(req, res, next) { // Added next as a parameter
   try {
-    const { invId } = req.params;
-    await favoritesModel.removeFavorite(res.locals.accountData.account_id, invId);
-    req.flash("notice", "Vehicle removed from favorites.");
-    res.redirect("/favorites");
+      const { invId } = req.params; 
+      await favoritesModel.removeFavorite(res.locals.accountData.account_id, invId);
+      req.flash("notice", "Vehicle removed from favorites.");
+      res.redirect("/favorites");
   } catch (error) {
-    utilities.handleErrors(error, req, res);
+      console.error("Error removing favorite:", error); // Log the error
+      next(error); // Pass the error to the next middleware
   }
 }
 
-async function buildFavoritesView(req, res) {
+async function buildFavoritesView(req, res, next) {
   try {
-    const favorites = await favoritesModel.getFavoritesByAccountId(res.locals.accountData.account_id);
     const nav = await utilities.getNav();
+    const accountId = req.session.account_id;
+    
+    // Fetch favorites with inventory details
+    const result = await favoritesModel.getFavoritesByAccountId(accountId);
+
     res.render("account/favorites", {
       title: "My Favorites",
       nav,
-      favorites: favorites.rows
+      favorites: result.rows, // Ensure result.rows is passed
+      errors: null,
+      messages: req.flash("notice"),
     });
   } catch (error) {
-    utilities.handleErrors(error, req, res);
+    console.error("Error loading favorites:", error);
+    next(error);
   }
 }
 

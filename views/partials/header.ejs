@@ -4,7 +4,7 @@
     <ul>
       <% if (loggedin) { %>
         <!-- Link to account management page, visible when logged in -->
-        <li><a href="/account/manage">Welcome <%= accountData.account_firstname %></a></li>
+        <li><a href="/account/">Account <%= accountData.account_firstname %></a></li>
         <!-- Logout link, visible when logged in -->
         <li><a href="/account/logout" class="account">Logout</a></li>
       <% } else { %>

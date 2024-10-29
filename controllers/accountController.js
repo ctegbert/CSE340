@@ -41,37 +41,36 @@ async function registerAccount(req, res, next) {
 // Process login request
 async function accountLogin(req, res, next) {
   try {
-    console.log("Request body:", req.body);  // Log to confirm body content
     const { account_email, account_password } = req.body;
 
-    if (!account_email || !account_password) {
-      req.flash("notice", "Email and password are required.");
-      return res.redirect("/account/login");
-    }
-
+    // Retrieve account data by email
     const accountData = await accountModel.getAccountByEmail(account_email);
-    console.log("Retrieved account data:", accountData);
-
     if (!accountData) {
-      req.flash("notice", "Invalid email or password");
+      req.flash("notice", "Invalid email or password.");
       return res.redirect("/account/login");
     }
 
+    // Verify password
     const isPasswordMatch = await bcrypt.compare(account_password, accountData.account_password);
     if (!isPasswordMatch) {
-      req.flash("notice", "Invalid email or password");
+      req.flash("notice", "Invalid email or password.");
       return res.redirect("/account/login");
     }
 
+    // Create JWT token
     const token = jwt.sign(
       { account_id: accountData.account_id, email: accountData.account_email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "1h" }
     );
-    res.cookie("jwt", token, { httpOnly: true });
 
-    req.flash("notice", "You are logged in successfully!");
-    res.redirect("/account");
+    // Store JWT in cookie and account_id in session
+    res.cookie("jwt", token, { httpOnly: true });
+    req.session.account_id = accountData.account_id;
+    res.cookie("account_id", accountData.account_id, { httpOnly: true });
+
+    req.flash("notice", "You have successfully logged in!");
+    return res.redirect("/account/");
   } catch (error) {
     console.error("Error in accountLogin:", error);
     next(error);
@@ -82,8 +81,8 @@ async function accountLogin(req, res, next) {
 async function buildAccountManagement(req, res, next) {
   try {
     // Retrieve the account ID from session or cookie
-    const accountId = req.account_id || req.cookies.account_id;
-    
+    const accountId = req.session.account_id || req.cookies.account_id;
+
     if (!accountId) {
       req.flash("notice", "Account not found.");
       return res.redirect("/account/login");
@@ -104,7 +103,8 @@ async function buildAccountManagement(req, res, next) {
       account_firstname: accountData.account_firstname,
       account_lastname: accountData.account_lastname,
       account_email: accountData.account_email,
-      account_id: accountData.account_id,
+      account_id: accountData.account_id,  // Ensure account_id is passed
+      account_type: accountData.account_type, // Ensure account_type is passed
       nav: res.locals.nav,
     });
   } catch (error) {
@@ -117,9 +117,20 @@ async function buildAccountManagement(req, res, next) {
 async function buildUpdateAccount(req, res, next) {
   try {
     const nav = await utilities.getNav();
-    res.render("account/update-account", {
+    const accountId = req.params.accountId; // Get accountId from route parameter
+
+    // Fetch account data using accountId
+    const accountData = await accountModel.getAccountById(accountId);
+    if (!accountData) {
+      req.flash("notice", "Account not found.");
+      return res.redirect("/account");
+    }
+
+    // Render the update view, ensuring accountData is passed as "account"
+    res.render("account/update", { 
       title: "Update Account Information",
       nav,
+      account: accountData, // Pass account data as "account"
       errors: null,
       messages: req.flash("notice"),
     });

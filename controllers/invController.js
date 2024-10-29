@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities/");
+const favoritesModel = require("../models/favoritesModel");
 
 const invCont = {};
 
@@ -37,13 +38,19 @@ invCont.buildByInventoryId = async function (req, res, next) {
     const invId = req.params.invId;
     const data = await invModel.getInventoryById(invId);
     const nav = await utilities.getNav();
-
+    
+    // Fetch user's favorites
+    const accountId = req.session.account_id;
+    const favoritesResult = await favoritesModel.getFavoritesByAccountId(accountId);
+    
+    // Add favorites to the render data
     if (data.length > 0) {
       const vehicle = data[0];
       res.render("./inventory/detail", {
         title: `${vehicle.inv_make} ${vehicle.inv_model}`,
         nav,
         vehicle,
+        favorites: favoritesResult.rows, // Ensure this line passes favorites to the view
       });
     } else {
       req.flash("notice", "Vehicle not found.");

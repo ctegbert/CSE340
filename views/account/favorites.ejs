@@ -1,16 +1,29 @@
-<h1>My Favorites</h1>
-<ul>
-  <% if (favorites.length) { %>
-    <% favorites.forEach(vehicle => { %>
-      <li>
-        <h2><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h2>
-        <p>Price: $<%= vehicle.inv_price %></p>
-        <form action="/favorites/remove/<%= vehicle.inv_id %>" method="POST">
-          <button type="submit">Remove from Favorites</button>
-        </form>
-      </li>
-    <% }) %>
-  <% } else { %>
-    <p>No favorites added yet.</p>
-  <% } %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>My Favorites</h1>
+    <div class="favorites-list">
+        <% if (favorites.length) { %>
+            <% favorites.forEach(vehicle => { %>
+                <div class="favorite-item">
+                    <h3>
+                        <a href="/inv/detail/<%= vehicle.inv_id %>"><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></a>
+                    </h3>
+                    <p>Price: $<%= vehicle.inv_price %></p>
+                    <form action="/favorites/remove/<%= vehicle.inv_id %>" method="POST" style="display: inline;">
+                        <button type="submit">Remove from Favorites</button>
+                    </form>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No favorites added yet.</p>
+        <% } %>
+    </div>
+</body>
+</html>

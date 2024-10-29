@@ -22,18 +22,17 @@
     <!-- Account Update Form -->
     <form action="/account/update/<%= account.account_id %>" method="POST" novalidate>
         <h2>Account Update</h2>
-
+    
         <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="account_firstname" value="<%= account.account_firstname %>" required>
-
+        <input type="text" name="firstname" id="firstname" value="<%= account.account_firstname %>">
+        
         <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="account_lastname" value="<%= account.account_lastname %>" required>
-
+        <input type="text" name="lastname" id="lastname" value="<%= account.account_lastname %>">
+        
         <label for="email">Email:</label>
-        <input type="email" id="email" name="account_email" value="<%= account.account_email %>" required>
-
-        <input type="hidden" name="account_id" value="<%= account.account_id %>">
-
+        <input type="email" name="email" id="email" value="<%= account.account_email %>">
+    
+        <!-- Submit Button -->
         <button type="submit">Update Account</button>
     </form>
 

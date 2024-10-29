@@ -22,7 +22,13 @@
 <%- include('../partials/detailFooter'); -%>
 
 <% if (loggedin) { %>
-  <form action="/favorites/add/<%= vehicle.inv_id %>" method="POST">
-    <button type="submit">Add to Favorites</button>
-  </form>
+  <% if (favorites && favorites.some(fav => fav.inv_id === vehicle.inv_id)) { %>
+    <form action="/favorites/remove/<%= vehicle.inv_id %>" method="POST">
+      <button type="submit">Remove from Favorites</button>
+    </form>
+  <% } else { %>
+    <form action="/favorites/add/<%= vehicle.inv_id %>" method="POST">
+      <button type="submit">Add to Favorites</button>
+    </form>
+  <% } %>
 <% } %>

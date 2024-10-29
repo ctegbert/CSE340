@@ -63,10 +63,12 @@ Util.checkLogin = (req, res, next) => {
  * Error handling wrapper for async functions
  ************************************ */
 Util.handleErrors = function (fn) {
+  console.log("Function passed to handleErrors:", fn); // Debugging
   return function (req, res, next) {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 };
+
 
 /* **************************************
  * Build Classification Grid

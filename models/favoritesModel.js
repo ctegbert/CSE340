@@ -19,4 +19,6 @@ async function getFavoritesByAccountId(accountId) {
   return pool.query(sql, [accountId]);
 }
 
+
+
 module.exports = { addFavorite, removeFavorite, getFavoritesByAccountId };
