@@ -1,39 +1,29 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const expressLayouts = require("express-ejs-layouts")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-const session = require("express-session")
-const pool = require('./database/')
+const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
+const dotenv = require("dotenv").config();
+const app = express();
+const static = require("./routes/static");
+const baseController = require("./controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
+const session = require("express-session");
+const pool = require("./database/");
 const accountRoute = require("./routes/accountRoute");
 const favoritesRoute = require("./routes/favoritesRoute");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const utilities = require("./utilities/index");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 
-
-/* ***********************
- * Middleware
- * ************************/
+// Set up session middleware
 app.use(session({
-  store: new (require('connect-pg-simple')(session))({
+  store: new (require("connect-pg-simple")(session))({
     createTableIfMissing: true,
     pool,
   }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  name: 'sessionId',
+  name: "sessionId",
 }));
 
 // Flash Middleware
@@ -60,7 +50,7 @@ app.use(async function(req, res, next) {
   }
 });
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 // Middleware to check JWT Token
 app.use(utilities.checkJWTToken);
@@ -72,45 +62,27 @@ app.use((req, res, next) => {
   next();
 });
 
-/* ***********************
- * View Engines and Templates
- *************************/
+// View Engines and Templates
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
 
-/* ***********************
- * Routes
- *************************/
+// Routes
 app.use(static);
-
-// Index route
 app.get("/", baseController.buildHome);
-
-// Account route
 app.use("/account", accountRoute);
-
-// Inventory routes
 app.use("/inv", inventoryRoute);
-
-// Favorites route
 app.use("/favorites", favoritesRoute);
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
+// Local Server Information
 const port = process.env.PORT;
 const host = process.env.HOST;
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`);
 });
 
-// Catch-all 404 handler for undefined routes
+// Catch-all 404 handler
 app.use((req, res, next) => {
   const err = new Error("Sorry, the page you are looking for does not exist.");
   err.status = 404;
@@ -120,13 +92,12 @@ app.use((req, res, next) => {
 // Error-handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-
   const statusCode = err.status || 500;
-  let title = statusCode === 404 ? "Page Not Found" : "Server Error";
-  let message = statusCode === 404 
+  const title = statusCode === 404 ? "Page Not Found" : "Server Error";
+  const message = statusCode === 404 
     ? "Sorry, the page you are looking for does not exist." 
     : "This is an intentional HTTP 500 Internal Server Error.";
-  let errorType = statusCode === 404 ? "404" : "500";
+  const errorType = statusCode === 404 ? "404" : "500";
 
   res.status(statusCode).render("error", {
     title,

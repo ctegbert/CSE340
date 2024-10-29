@@ -41,33 +41,39 @@ async function registerAccount(req, res, next) {
 // Process login request
 async function accountLogin(req, res, next) {
   try {
-    const { email, password } = req.body;
-    const accountData = await accountModel.getAccountByEmail(email);
+    console.log("Request body:", req.body);  // Log to confirm body content
+    const { account_email, account_password } = req.body;
 
-    // Check if account exists
+    if (!account_email || !account_password) {
+      req.flash("notice", "Email and password are required.");
+      return res.redirect("/account/login");
+    }
+
+    const accountData = await accountModel.getAccountByEmail(account_email);
+    console.log("Retrieved account data:", accountData);
+
     if (!accountData) {
       req.flash("notice", "Invalid email or password");
       return res.redirect("/account/login");
     }
 
-    // Verify password using bcrypt
-    const isPasswordMatch = await bcrypt.compare(password, accountData.password);
+    const isPasswordMatch = await bcrypt.compare(account_password, accountData.account_password);
     if (!isPasswordMatch) {
       req.flash("notice", "Invalid email or password");
       return res.redirect("/account/login");
     }
 
-    // Generate JWT token and set it as a cookie
     const token = jwt.sign(
-      { account_id: accountData.account_id, email: accountData.email },
+      { account_id: accountData.account_id, email: accountData.account_email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "1h" }
     );
-
     res.cookie("jwt", token, { httpOnly: true });
+
     req.flash("notice", "You are logged in successfully!");
     res.redirect("/account");
   } catch (error) {
+    console.error("Error in accountLogin:", error);
     next(error);
   }
 }
@@ -75,14 +81,34 @@ async function accountLogin(req, res, next) {
 // Build the account management view
 async function buildAccountManagement(req, res, next) {
   try {
-    const nav = await utilities.getNav();
+    // Retrieve the account ID from session or cookie
+    const accountId = req.account_id || req.cookies.account_id;
+    
+    if (!accountId) {
+      req.flash("notice", "Account not found.");
+      return res.redirect("/account/login");
+    }
+
+    // Fetch account data
+    const accountData = await accountModel.getAccountById(accountId);
+
+    // Check if account data was retrieved successfully
+    if (!accountData) {
+      req.flash("notice", "Account not found.");
+      return res.redirect("/account/login");
+    }
+
+    // Render the management view, passing all necessary variables
     res.render("account/management", {
       title: "Account Management",
-      nav,
-      errors: null,
-      messages: req.flash("notice"),
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+      account_email: accountData.account_email,
+      account_id: accountData.account_id,
+      nav: res.locals.nav,
     });
   } catch (error) {
+    console.error("Error building account management view:", error);
     next(error);
   }
 }
